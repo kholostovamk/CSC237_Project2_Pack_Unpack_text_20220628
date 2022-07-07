@@ -9,12 +9,106 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
+
+
+bool confirmYN(string promptText);
+void displayHelpText();
 
 int main() {
 
+	string command;
+    bool keepRunning = true;         // flag to control exit from program.
+
+    while (keepRunning == true) {
+
+		// Prompt for command input.
+		cout << "Enter command (or 'h' for help): ";
+		getline(cin, command);
+
+		//   Based on the command that the user entered, call 
+		//   the function that implements that command.
+		if (command == "p") {
+			
+		}
+		else if (command == "u") {
+			
+		}
+		else if (command == "h") {
+            	displayHelpText();
+		}
+		else if (command == "q") {
+			// If user confirms, set flag to exit program
+			keepRunning = !confirmYN("Are you sure that you want to exit the program? ");
+		}
+		else {
+			cout << "Invalid command: " << command << endl;
+		}
+    }  // (end 'while')
+
+        cout << "Exit the program." << endl;
+	return 0;
+}  // (end function 'main')
 
 
 
 
+void displayHelpText() {
+	// Help text.
+	cout << "General command format:  \n"
+		<< "     most commands consist of a single-letter \n" << endl;
+	cout << "Supported commands: \n"
+		<< "     a    Pack a text document into insigned integers.\n"
+		<< "     u    Unpack unsigned integers to text.\n"
+		<< "     h    Print help text.\n"
+		<< "     q    Quit (end the program).\n"
+		<< endl;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bool confirmYN(string promptText)
+{
+	string inputString;
+	bool confirmationValue = false;
+	bool inputIsOK = false;
+
+	do
+	{
+		// input from user 
+		cout << promptText;
+		getline(cin, inputString);
+
+		if (inputString == "y" || inputString == "Y")
+		{
+			confirmationValue = true;
+			inputIsOK = true;
+		}
+		else if (inputString == "n" || inputString == "N")
+		{
+			confirmationValue = false;
+			inputIsOK = true;
+		}
+		else
+		{
+			cout << "Invalid input:  " << inputString << ".  Please input y or n." << endl;
+		}
+	} while (inputIsOK == false);
+	return confirmationValue;}
+
+
+
+
