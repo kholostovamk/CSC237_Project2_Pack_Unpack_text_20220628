@@ -21,6 +21,17 @@ int main() {
 	string command;
     bool keepRunning = true;         // flag to control exit from program.
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     while (keepRunning == true) {
 
 		// Prompt for command input.
@@ -50,6 +61,47 @@ int main() {
         cout << "Exit the program." << endl;
 	return 0;
 }  // (end function 'main')
+
+
+//command p
+
+string p() {
+
+    //opening file FOR INPUT
+    fstream inFile;
+    string fileName;
+    cout << "Enter name of input file: " << endl;
+    cin>> fileName;
+    inFile.open(fileName.c_str());
+
+    //opening file FOR OUTPUT
+    fstream outFile;
+    string filename2;
+    cout << "Enter name of output file: " << endl;
+    cin>> fileName2;
+    inFile.open(fileName2.c_str());
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
