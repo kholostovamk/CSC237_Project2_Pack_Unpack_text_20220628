@@ -15,6 +15,7 @@ using namespace std;
 
 bool confirmYN(string promptText);
 void displayHelpText();
+string p();
 
 int main() {
 
@@ -41,7 +42,7 @@ int main() {
 		//   Based on the command that the user entered, call 
 		//   the function that implements that command.
 		if (command == "p") {
-			
+			p();
 		}
 		else if (command == "u") {
 			
@@ -67,28 +68,29 @@ int main() {
 
 string p() {
 
-    //opening file FOR INPUT
-    fstream inFile;
+       //opening file FOR INPUT
+    ifstream inFile;
     string fileName;
     cout << "Enter name of input file: " << endl;
     cin>> fileName;
     inFile.open(fileName.c_str());
 
     //opening file FOR OUTPUT
-    fstream outFile;
+    ofstream outFile;
     string fileName2;
     cout << "Enter name of output file: " << endl;
     cin>> fileName2;
-    inFile.open(fileName2.c_str());
+    outFile.open(fileName2.c_str());
 
     
-    //notcorrect
-    fstream inFile(fileName.c_str());
+ 
+    //works for out put out of file
     string line1;
-    while(getline(inFile, line1)) {
-        process(&line1);
-        cout<<line1<< endl;
+    while(getline(inFile, line1)){
+      cout<<line1<< endl;
     }
+    
+	
 
 }
 
