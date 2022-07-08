@@ -76,10 +76,19 @@ string p() {
 
     //opening file FOR OUTPUT
     fstream outFile;
-    string filename2;
+    string fileName2;
     cout << "Enter name of output file: " << endl;
     cin>> fileName2;
     inFile.open(fileName2.c_str());
+
+    
+    //notcorrect
+    fstream inFile(fileName.c_str());
+    string line1;
+    while(getline(inFile, line1)) {
+        process(&line1);
+        cout<<line1<< endl;
+    }
 
 }
 
