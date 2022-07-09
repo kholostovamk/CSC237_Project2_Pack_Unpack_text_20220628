@@ -87,7 +87,7 @@ string p() {
     //works for out put out of file
     string line1;
     while(getline(inFile, line1)){
-      cout<<line1<< endl;
+      cout<<line1<< "\n";
     }
     
 	
