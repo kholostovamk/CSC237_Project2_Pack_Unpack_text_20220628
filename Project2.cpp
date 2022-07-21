@@ -1,6 +1,6 @@
 //CSC237 Project2:
-// Student: yourName 
-// Due Date: projectDueDate // Description:
+// Student: Margarita Kholostova
+// Due Date: July 14th // Description:
 //Text Packing / Unpacking Operations
 // This program reads a text document, “packs” the ASCII characters // from that document into unsigned int variables, and outputs those variables // to another text file, formatted as hexadecimal numbers.
 // This program also reverses the process, converting the unsigned int numbers // back into a copy of the original text document.
@@ -15,7 +15,7 @@ using namespace std;
 
 bool confirmYN(string promptText);
 void displayHelpText();
-string p();
+void p();
 
 int main() {
 
@@ -66,7 +66,7 @@ int main() {
 
 //command p
 
-string p() {
+void p() {
 
        //opening file FOR INPUT
     ifstream inFile;
@@ -83,61 +83,58 @@ string p() {
     outFile.open(fileName2.c_str());
 
     
- 
-    //works for out put out of file
+ 	//works for out put out of file
     string line1;
-    while(getline(inFile, line1)){
+    
+	while(getline(inFile, line1)){
       cout<<line1<< "\n";
     }
-    
-	
+	string outputText = line1 + "\n";
 
+	for (int i = 0; i < 5; i++) {
+		cout << endl;
+		
+		for (int position = 0; position < outputText.length(); position++)
+		{
+			unsigned int textCharacter = outputText[position];
+			int offset = position % 4;
+			int shifted_character=0;
+			if (offset == 0)
+			{
+				shifted_character = textCharacter << 24;
+			}
+			else if (offset == 1)
+			{
+				shifted_character = textCharacter << 16;
+			}
+			else if (offset == 2)
+			{
+				shifted_character = textCharacter << 8;
+			}
+			else
+			{
+				cout << shifted_character;
+				break;
+			}
+			
+		}
+
+	}
+
+		
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void displayHelpText() {
 	// Help text.
 	cout << "General command format:  \n"
 		<< "     most commands consist of a single-letter \n" << endl;
 	cout << "Supported commands: \n"
-		<< "     a    Pack a text document into insigned integers.\n"
+		<< "     p    Pack a text document into insigned integers.\n"
 		<< "     u    Unpack unsigned integers to text.\n"
 		<< "     h    Print help text.\n"
 		<< "     q    Quit (end the program).\n"
 		<< endl;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
