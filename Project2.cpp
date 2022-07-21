@@ -15,23 +15,13 @@ using namespace std;
 
 bool confirmYN(string promptText);
 void displayHelpText();
-void p();
+void packText();
+void unpackText();
 
 int main() {
 
 	string command;
     bool keepRunning = true;         // flag to control exit from program.
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     while (keepRunning == true) {
 
@@ -42,10 +32,10 @@ int main() {
 		//   Based on the command that the user entered, call 
 		//   the function that implements that command.
 		if (command == "p") {
-			p();
+			packText();
 		}
 		else if (command == "u") {
-			
+			unpackText();
 		}
 		else if (command == "h") {
             	displayHelpText();
@@ -64,9 +54,10 @@ int main() {
 }  // (end function 'main')
 
 
+
 //command p
 
-void p() {
+void packText() {
 
        //opening file FOR INPUT
     ifstream inFile;
@@ -86,42 +77,129 @@ void p() {
  	//works for out put out of file
     string line1;
     
-	while(getline(inFile, line1)){
-      cout<<line1<< "\n";
-    }
+	while(getline(inFile, line1)){  // this is the OUTER loop
+      cout<<"Input text (length= "<<line1.length()<<")"<<line1<< "\n";
+   
 	string outputText = line1 + "\n";
 
-	for (int i = 0; i < 5; i++) {
-		cout << endl;
-		
+	unsigned int outputValue = 0;
+	int offset = 0;                            // pmorgan
+	//                                          this is the INNER loop
 		for (int position = 0; position < outputText.length(); position++)
 		{
 			unsigned int textCharacter = outputText[position];
-			int offset = position % 4;
+			offset = position % 4;               // pmorgan
 			int shifted_character=0;
 			if (offset == 0)
 			{
 				shifted_character = textCharacter << 24;
+				outputValue = shifted_character;                // pmorgan
 			}
 			else if (offset == 1)
 			{
-				shifted_character = textCharacter << 16;
+				shifted_character = textCharacter << 16;        
+				outputValue = outputValue | shifted_character;   //  pmorgan
 			}
 			else if (offset == 2)
 			{
 				shifted_character = textCharacter << 8;
+				outputValue = outputValue | shifted_character;   //  pmorgan
 			}
-			else
+			else   // (offset == 3)
 			{
-				cout << shifted_character;
-				break;
+				//cout << shifted_character;
+				shifted_character = textCharacter;               //  pmorgan
+				outputValue = outputValue | shifted_character;
+				outFile << hex << outputValue << endl;        
+				outputValue = 0;   
 			}
 			
+		}                                              // end of INNER loop 
+		// After the INNER loop is done, check if there are any "partial" numbers   // pmorgan
+		// in outputValue.   If there are, write those to the output file.          // pmorgan
+		if (offset < 3) {                                        // pmorgan
+			outFile << hex << outputValue << endl;               // pmorgan
 		}
 
-	}
 
+	}  // end of OUTER loop.
+
+	inFile.close();
+	outFile.close();
+}
+
+//comand u
+
+void unpackText() {
+
+	//opening for input
+	ifstream inFile;
+    string fileName;
+    cout << "Enter name of input file: " << endl;
+    cin>> fileName;
+    inFile.open(fileName.c_str());
+
+    //opening file FOR OUTPUT
+    ofstream outFile;
+    string fileName2;
+    cout << "Enter name of output file: " << endl;
+    cin>> fileName2;
+    outFile.open(fileName2.c_str());
+
+	unsigned int num1=0;
+	
+
+	while (inFile >> hex >> num1){          // pmorgan (added "hex")
+		unsigned char numChar;
 		
+		int offset = 0;
+		cout << endl
+			 << "(line " << dec << __LINE__ << "): num1=" << hex << num1 << endl; // pmorgan (debug aid)
+	
+	    for(offset = 0; offset < 4; offset++)  {                         // pmorgan
+			if (offset == 3) 
+			{
+				numChar = (num1 & 0x000000ff);
+				if (numChar!=0) {
+					outFile << numChar;
+					cout << numChar;
+				}
+				
+				
+				
+			}
+			else if (offset == 2) 
+			{
+				numChar = (num1 & 0x0000ff00) >>8;
+			
+				if (numChar!=0) {
+					outFile << numChar;
+					cout << numChar;
+				}
+			}
+			else if (offset ==1)
+			{
+				numChar = (num1 & 0x00ff0000) >> 16;
+				if (numChar!=0) {
+					outFile << numChar;
+					cout << numChar;
+				}
+			}
+			else   // (offset == 0)
+			{
+				numChar = (num1 & 0xff000000) >> 24;
+				
+				if (numChar!=0) {
+					outFile << numChar;
+					cout << numChar;
+				}
+			}
+		}
+		
+	}
+	inFile.close();
+	outFile.close();
+	
 }
 
 void displayHelpText() {
@@ -168,7 +246,3 @@ bool confirmYN(string promptText)
 		}
 	} while (inputIsOK == false);
 	return confirmationValue;}
-
-
-
-
