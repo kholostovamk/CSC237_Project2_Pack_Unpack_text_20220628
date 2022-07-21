@@ -124,6 +124,8 @@ void packText() {
 
 	}  // end of OUTER loop.
 
+
+	//closing files
 	inFile.close();
 	outFile.close();
 }
@@ -150,24 +152,24 @@ void unpackText() {
 	
 
 	while (inFile >> hex >> num1){          
-		unsigned char numChar;
 		
+		unsigned char numChar;
 		int offset = 0;
 		
 
 		for(offset = 0; offset < 4; offset++)  {                         // pmorgan
 			if (offset == 3) 
 			{
-				numChar = (num1 & 0x000000ff);
-				if (numChar!=0) {
+				numChar = (num1 & 0x000000ff); //bitwise AND
+				
+				if (numChar!=0) { //if there are any 0's they wont be put in file
 					outFile << numChar;
-					
 				}
 				
 			}
 			else if (offset == 2) 
 			{
-				numChar = (num1 & 0x0000ff00) >>8;
+				numChar = (num1 & 0x0000ff00) >>8; //bitwise AND + right shift
 			
 				if (numChar!=0) {
 					outFile << numChar;
@@ -176,7 +178,7 @@ void unpackText() {
 			}
 			else if (offset ==1)
 			{
-				numChar = (num1 & 0x00ff0000) >> 16;
+				numChar = (num1 & 0x00ff0000) >> 16; //bitwise AND + right shift
 				if (numChar!=0) {
 					outFile << numChar;
 					
@@ -184,7 +186,7 @@ void unpackText() {
 			}
 			else   // (offset == 0)
 			{
-				numChar = (num1 & 0xff000000) >> 24;
+				numChar = (num1 & 0xff000000) >> 24; //bitwise AND + right shift
 				
 				if (numChar!=0) {
 					outFile << numChar;
@@ -194,6 +196,8 @@ void unpackText() {
 		}
 		
 	}
+	
+	//closing files
 	inFile.close();
 	outFile.close();
 	
