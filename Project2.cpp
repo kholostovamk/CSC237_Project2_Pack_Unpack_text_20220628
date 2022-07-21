@@ -149,23 +149,20 @@ void unpackText() {
 	unsigned int num1=0;
 	
 
-	while (inFile >> hex >> num1){          // pmorgan (added "hex")
+	while (inFile >> hex >> num1){          
 		unsigned char numChar;
 		
 		int offset = 0;
-		cout << endl
-			 << "(line " << dec << __LINE__ << "): num1=" << hex << num1 << endl; // pmorgan (debug aid)
-	
-	    for(offset = 0; offset < 4; offset++)  {                         // pmorgan
+		
+
+		for(offset = 0; offset < 4; offset++)  {                         // pmorgan
 			if (offset == 3) 
 			{
 				numChar = (num1 & 0x000000ff);
 				if (numChar!=0) {
 					outFile << numChar;
-					cout << numChar;
+					
 				}
-				
-				
 				
 			}
 			else if (offset == 2) 
@@ -174,7 +171,7 @@ void unpackText() {
 			
 				if (numChar!=0) {
 					outFile << numChar;
-					cout << numChar;
+					
 				}
 			}
 			else if (offset ==1)
@@ -182,7 +179,7 @@ void unpackText() {
 				numChar = (num1 & 0x00ff0000) >> 16;
 				if (numChar!=0) {
 					outFile << numChar;
-					cout << numChar;
+					
 				}
 			}
 			else   // (offset == 0)
@@ -191,7 +188,7 @@ void unpackText() {
 				
 				if (numChar!=0) {
 					outFile << numChar;
-					cout << numChar;
+					
 				}
 			}
 		}
