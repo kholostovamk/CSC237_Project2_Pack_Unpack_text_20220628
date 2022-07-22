@@ -28,17 +28,21 @@ int main() {
 		// Prompt for command input.
 		cout << "Enter command (or 'h' for help): ";
 		getline(cin, command);
+		
 
 		//   Based on the command that the user entered, call 
 		//   the function that implements that command.
 		if (command == "p") {
 			packText();
+			cin.ignore(10, '\n');
 		}
 		else if (command == "u") {
 			unpackText();
+			cin.ignore(10, '\n');
 		}
 		else if (command == "h") {
             	displayHelpText();
+				
 		}
 		else if (command == "q") {
 			// If user confirms, set flag to exit program
@@ -47,8 +51,9 @@ int main() {
 		else {
 			cout << "Invalid command: " << command << endl;
 		}
+		
     }  // (end 'while')
-
+	
         cout << "Exit the program." << endl;
 	return 0;
 }  // (end function 'main')
@@ -245,5 +250,7 @@ bool confirmYN(string promptText)
 		{
 			cout << "Invalid input:  " << inputString << ".  Please input y or n." << endl;
 		}
+		
 	} while (inputIsOK == false);
+	
 	return confirmationValue;}
